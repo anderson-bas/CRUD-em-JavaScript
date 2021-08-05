@@ -25,12 +25,10 @@ function preventFormSubmit() {
 function activateInput() {
   function insertName(newName) {
     globalNames.push(newName);
-    render();
   }
 
   function updateName(newName) {
     globalNames[currentIndex] = newName;
-    render();
   }
 
   function handleTyping(event) {
@@ -42,12 +40,12 @@ function activateInput() {
 
     if (event.key === 'Enter') {
       if (isEditing) {
-        console.log('Ediding');
         updateName(event.target.value);
       } else {
         console.log('Inserting');
         insertName(event.target.value);
       }
+      render();
       isEditing = false;
       clearInput();
     }
@@ -58,8 +56,8 @@ function activateInput() {
 }
 
 function render() {
-  function createDeleteButton() {
-    function deleteName(index) {
+  function createDeleteButton(index) {
+    function deleteName() {
       globalNames.splice(index, 1);
       render();
     }
