@@ -12,3 +12,12 @@ function start() {
   activateInput();
   render();
 }
+
+function preventFormSubmit() {
+  function handleFormSubmit(event) {
+    event.preventDefault();
+  }
+
+  var form = document.querySelector('form');
+  form.addEventListener('submit', handleFormSubmit);
+}
