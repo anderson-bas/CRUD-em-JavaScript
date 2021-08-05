@@ -56,3 +56,57 @@ function activateInput() {
   inputName.addEventListener('keyup', handleTyping);
   inputName.focus();
 }
+
+function render() {
+  function createDeleteButton() {
+    function deleteName(index) {
+      globalNames.splice(index, 1);
+      render();
+    }
+
+    var button = document.createElement('button');
+    button.classList.add('deleteButton');
+    button.textContent = 'X';
+
+    button.addEventListener('click', deleteName);
+
+    return button;
+  }
+
+  function creatSpan(name, index) {
+    function editIem() {
+      inputName.value = name;
+      inputName.focus();
+      isEditing = true;
+      currentIndex = index;
+    }
+
+    var span = document.createElement('span');
+    span.classList.add('clickable');
+    span.textContent = name;
+    span.addEventListener('click', editIem);
+
+    return span;
+  }
+
+  var divNames = document.querySelector('#names');
+  divNames.innerHTML = '';
+
+  var ul = document.createElement('ul');
+
+  for (var i = 0; i < globalNames.length; i++) {
+    var currentName = globalNames[i];
+
+    var li = document.createElement('li');
+    var button = createDeleteButton(i);
+
+    var span = creatSpan(currentName, i);
+
+    li.appendChild(button);
+    li.appendChild(span);
+    ul.appendChild(li);
+  }
+
+  divNames.appendChild(ul);
+  clearInput();
+}
